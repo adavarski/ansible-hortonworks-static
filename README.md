@@ -13,9 +13,6 @@ Lounch VMs : one namenode with Ambari and one datanode
 $ vagrant up
 
 ```
-sudo apt-get update
-sudo apt-get -y install unzip python-virtualenv python-pip python-dev sshpass git libffi-dev libssl-dev libyaml-dev vim
-
 Install required packages:
 
 sudo apt-get update
