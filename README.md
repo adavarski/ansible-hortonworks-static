@@ -64,8 +64,10 @@ If ran out-of-the-box, the cluster - one namenode with Ambari and one datanode -
 
 ### secret key and access key
 In /etc/profile.d/sh.local add secret key and access key
+```
 export AWS_SECRET_ACCESS_KEY=
 export AWS_ACCESS_KEY_ID=
+```
 (or some other way)
 
 ### Clone ansible-hortonworks repository
