@@ -1,6 +1,9 @@
-Manual install:
+Manually:
 
 Env Ubuntu 18.04:
+
+vagrant up
+
 ```
 sudo apt-get update
 sudo apt-get -y install unzip python-virtualenv python-pip python-dev sshpass git libffi-dev libssl-dev libyaml-dev vim
@@ -9,27 +12,26 @@ Install required packages:
 
 sudo apt-get update
 sudo apt-get -y install unzip python-virtualenv python-pip python-dev sshpass git libffi-dev libssl-dev libyaml-dev vim
+
 Create and source the Python virtual environment
 
 virtualenv ~/ansible; source ~/ansible/bin/activate
+
 Install the required Python packages inside the virtualenv
 
 pip install setuptools --upgrade
 pip install pip --upgrade
 pip install ansible
 
-git clone https://github.com/adavarski/ansible-hortonworks
+git clone https://github.com/hortonworks/ansible-hortonworks
 
 cd  ./ansible-hortonworks
 
 export CLOUD_TO_USE=static
 . set_cloud.sh 
 The static inventory will be used.
-davar@home ~/LABS/ansible-hortonworks $ export EXTRA_VARS_HDP=@./hdp-cluster-minimal.yml
-davar@home ~/LABS/ansible-hortonworks $ export STATIC_INI=./inventory/static
-davar@home ~/LABS/ansible-hortonworks $ 
-
-
+export EXTRA_VARS_HDP=@../config/hdp-cluster-minimal.yml
+export STATIC_INI=../config/static
 
 ansible-playbook -v -e "cloud_name=${cloud_to_use}" playbooks/prepare_nodes.yml --inventory="$STATIC_INI" --extra-vars="$EXTRA_VARS_HDP"
 
