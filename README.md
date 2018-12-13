@@ -1,8 +1,16 @@
-Manually:
+## Motivation
+The idea is to clone ansible-hortonworks from GitHub and change the variables without actually changing any of the files cloned.
+
+## Introduction
+The repository shows how to override variables in ansible-hortonworks/inventory/aws/group_vars/all and ansible-hortonworks/playbooks/group_vars/all using parameter extra-vars from the command line when running playbooks.
+
+## Manual installation: static environment
 
 Env Ubuntu 18.04:
 
-vagrant up
+Lounch VMs : one namenode with Ambari and one datanode
+
+$ vagrant up
 
 ```
 sudo apt-get update
@@ -29,7 +37,6 @@ cd  ./ansible-hortonworks
 
 export CLOUD_TO_USE=static
 . set_cloud.sh 
-The static inventory will be used.
 export EXTRA_VARS_HDP=@../config/hdp-cluster-minimal.yml
 export STATIC_INI=../config/static
 
@@ -41,6 +48,8 @@ ansible-playbook -v -e "cloud_name=${cloud_to_use}" playbooks/configure_ambari.y
 
 ansible-playbook -v -e "cloud_name=${cloud_to_use}" playbooks/apply_blueprint.yml --inventory="$STATIC_INI" --extra-vars="$EXTRA_VARS_HDP"
 
+ansible-playbook -v -e "cloud_name=${cloud_to_use}" playbooks/post_install.yml --inventory="$STATIC_INI" --extra-vars="$EXTRA_VARS_HDP"
+.....
 
 TASK [ambari-blueprint : Upload the blueprint hdp-minimal_blueprint to the Ambari server] ********************************************************************
 ok: [hadoopmaster] => {"cache_control": "no-store", "changed": false, "connection": "close", "content_type": "text/plain", "cookies": {"AMBARISESSIONID": "18py4rydkg1o81uera47a6zcq6"}, "cookies_string": "AMBARISESSIONID=18py4rydkg1o81uera47a6zcq6", "expires": "Thu, 01 Jan 1970 00:00:00 GMT", "msg": "OK (unknown bytes)", "pragma": "no-cache", "redirected": false, "set_cookie": "AMBARISESSIONID=18py4rydkg1o81uera47a6zcq6;Path=/;HttpOnly", "status": 201, "url": "http://hadoopmaster:8080/api/v1/blueprints/hdp-minimal_blueprint", "user": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER", "x_content_type_options": "nosniff", "x_frame_options": "DENY", "x_xss_protection": "1; mode=block"}
@@ -49,20 +58,10 @@ TASK [ambari-blueprint : Launch the create cluster request] ********************
 ok: [hadoopmaster] => {"cache_control": "no-store", "changed": false, "connection": "close", "content": "{\n  \"href\" : \"http://hadoopmaster:8080/api/v1/clusters/hdp-minimal/requests/1\",\n  \"Requests\" : {\n    \"id\" : 1,\n    \"status\" : \"Accepted\"\n  }\n}", "content_type": "text/plain", "cookies": {"AMBARISESSIONID": "18mwmwxjmgc6y1p26u2gmo9v1e"}, "cookies_string": "AMBARISESSIONID=18mwmwxjmgc6y1p26u2gmo9v1e", "expires": "Thu, 01 Jan 1970 00:00:00 GMT", "json": {"Requests": {"id": 1, "status": "Accepted"}, "href": "http://hadoopmaster:8080/api/v1/clusters/hdp-minimal/requests/1"}, "msg": "OK (unknown bytes)", "pragma": "no-cache", "redirected": false, "set_cookie": "AMBARISESSIONID=18mwmwxjmgc6y1p26u2gmo9v1e;Path=/;HttpOnly", "status": 202, "url": "http://hadoopmaster:8080/api/v1/clusters/hdp-minimal", "user": "VALUE_SPECIFIED_IN_NO_LOG_PARAMETER", "vary": "Accept-Encoding, User-Agent", "x_content_type_options": "nosniff", "x_frame_options": "DENY", "x_xss_protection": "1; mode=block"}
 
 TASK [ambari-blueprint : Wait for the cluster to be built] ***************************************************************************************************
-FAILED - RETRYING: Wait for the cluster to be built (360 retries left).
-FAILED - RETRYING: Wait for the cluster to be built (359 retries left).
-
-
 
 ```
 
-# ansible-hortonworks-configuration
-
-## Motivation
-The idea is to clone ansible-hortonworks from GitHub and change the variables without actually changing any of the files cloned.
-
-### Introduction
-The repository shows how to override variables in ansible-hortonworks/inventory/aws/group_vars/all and ansible-hortonworks/playbooks/group_vars/all using parameter extra-vars from the command line when running playbooks.
+## Installation with scripts: AWS environment
 
 If ran out-of-the-box, the cluster - one namenode with Ambari and one datanode - is build in region Ireland (eu-west-1) with centos7 and the instance types are t2.xlarge.
 
