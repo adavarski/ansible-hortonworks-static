@@ -1,4 +1,4 @@
-## Motivation
+## Hortonworks
 The idea is to clone ansible-hortonworks from GitHub and change the variables without actually changing any of the files cloned.
 
 ## Introduction
