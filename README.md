@@ -34,7 +34,7 @@ cd  ./ansible-hortonworks
 
 export CLOUD_TO_USE=static
 . set_cloud.sh 
-export EXTRA_VARS_HDP=@../config/hdp-cluster-minimal.yml
+export EXTRA_VARS_HDP=@../config/hdp-cluster-singlenode.yml
 export STATIC_INI=../config/static
 
 ansible-playbook -v -e "cloud_name=${cloud_to_use}" playbooks/prepare_nodes.yml --inventory="$STATIC_INI" --extra-vars="$EXTRA_VARS_HDP"
