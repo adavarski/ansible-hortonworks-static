@@ -17,9 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     c.vm.hostname = "hadoopmaster"
     c.vm.network :private_network, ip: "192.168.50.11"
     c.vm.provider :virtualbox do |vb|
-      vb.customize ['modifyvm', :id, '--memory', 1280]
+      vb.customize ['modifyvm', :id, '--memory', 14336]
       vb.customize ['modifyvm', :id, '--cpuexecutioncap', '70']
-      vb.customize ['modifyvm', :id, '--cpus', 1]
+      vb.customize ['modifyvm', :id, '--cpus', 2]
       vb.customize ["modifyvm", :id, "--audio", "none"]
 
     end
@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     c.vm.hostname = "hadoopslave1"
     c.vm.network :private_network, ip: "192.168.50.12"
     c.vm.provider :virtualbox do |vb|
-      vb.customize ['modifyvm', :id, '--memory', 1024]
+      vb.customize ['modifyvm', :id, '--memory', 512]
       vb.customize ['modifyvm', :id, '--cpuexecutioncap', '50']
       vb.customize ['modifyvm', :id, '--cpus', 1]
       vb.customize ["modifyvm", :id, "--audio", "none"]
